@@ -33,7 +33,14 @@ $(document).ready(function () {
             frequency: frequency,
         }; console.log(train);
 
-     
+        //push data into database
+        database.ref().push(train);
+        $("#train-name-row").append(trainName);
+        $("#train-destination-row").append(destination);
+        $("#train-time-row").append(trainTime);
+        $("#frequency-row").append(frequency);
+
+        //calculation
 
     });
 
