@@ -39,7 +39,7 @@ $(document).ready(function () {
         }; 
         console.log(train);
 
-        //push data into database
+        //push train data into database
         database.ref().push(train);
         // $("#train-name-row").append(trainName);
         // $("#train-destination-row").append(destination);
@@ -49,9 +49,9 @@ $(document).ready(function () {
         $("#destination").val("");
         $("#train-time").val("");
         $("#frequency").val("");
-       //calculation
-    });
        
+    });
+       //Add train info to database 
     database.ref().on("child_added", function(childSnapshot){
         console.log(childSnapshot.val());
 
@@ -65,6 +65,7 @@ $(document).ready(function () {
         console.log(trainTime);
         console.log(frequency);
 
+        //Calculate next arrival train and how far it is
         var trainTimeConverted = moment(trainTime, "HH:mm").subtract(1, "years");
         var currentTime = moment();
         console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
@@ -75,6 +76,14 @@ $(document).ready(function () {
         var nextTrain = moment().add(trainMinAway, "m").format("hh:mm");
         console.log("Next Train time: " + nextTrain);
 
+        //Adding new info into a new row
+        $("#train-table").append(
+            "<tr><td>" + childSnapshot.val().trainName + "</td>" +
+            "<td>" + childSnapshot.val().destination + "</td>" +
+            "<td>" + childSnapshot.val().frequency + "</td>" +
+            "<td>" + nextTrain  + "</td>" +
+            "<td>" + trainMinAway + "</td></tr>"
+        );
 
     });
     });
