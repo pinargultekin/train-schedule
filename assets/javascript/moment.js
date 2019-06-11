@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     //reference the database
     var database = firebase.database();
-    
+
     // Submit button click function
     $("#submit-input").on("click", function (event) {
         event.preventDefault();
@@ -23,8 +23,8 @@ $(document).ready(function () {
         var destination = $("#destination").val().trim();
         var trainTime = $("#train-time").val().trim();
         var frequency = parseInt($("#frequency").val().trim());
-        
-        
+
+
         console.log(trainName);
         console.log(destination);
         console.log(trainTime);
@@ -36,7 +36,7 @@ $(document).ready(function () {
             destination: destination,
             trainTime: trainTime,
             frequency: frequency,
-        }; 
+        };
         console.log(train);
 
         //push train data into database
@@ -49,16 +49,16 @@ $(document).ready(function () {
         $("#destination").val("");
         $("#train-time").val("");
         $("#frequency").val("");
-       
+
     });
-       //Add train info to database 
-    database.ref().on("child_added", function(childSnapshot){
+    //Add train info to database 
+    database.ref().on("child_added", function (childSnapshot) {
         console.log(childSnapshot.val());
 
-        var trainName= childSnapshot.val().trainName;
-        var destination= childSnapshot.val().destination;
-        var trainTime= childSnapshot.val().trainTime;
-        var frequency= childSnapshot.val().frequency;
+        var trainName = childSnapshot.val().trainName;
+        var destination = childSnapshot.val().destination;
+        var trainTime = childSnapshot.val().trainTime;
+        var frequency = childSnapshot.val().frequency;
 
         console.log(trainName);
         console.log(destination);
@@ -68,27 +68,60 @@ $(document).ready(function () {
         //Calculate next arrival train and how far it is
         var trainTimeConverted = moment(trainTime, "HH:mm").subtract(1, "years");
         var currentTime = moment();
-        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+        console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
+        
+
+        function update() {
+            $("#time").html(moment().format("HH:mm:ss"));
+        }
+       setInterval(update, 1000);
+
         var diffTime = moment().diff(moment(trainTimeConverted), "minutes");
+
         var minAway = diffTime % frequency;
+
         var trainMinAway = frequency - minAway;
-        console.log("Mins Away: "+trainMinAway);
-        var nextTrain = moment().add(trainMinAway, "m").format("hh:mm");
+        console.log("Mins Away: " + trainMinAway);
+
+        var nextTrain = moment().add(trainMinAway, "m").format("HH:mm");
         console.log("Next Train time: " + nextTrain);
 
+       
         //Adding new info into a new row
         $("#train-table").append(
             "<tr><td>" + childSnapshot.val().trainName + "</td>" +
             "<td>" + childSnapshot.val().destination + "</td>" +
             "<td>" + childSnapshot.val().frequency + "</td>" +
-            "<td>" + nextTrain  + "</td>" +
+            "<td>" + nextTrain + "</td>" +
             "<td>" + trainMinAway + "</td></tr>"
         );
 
     });
-    });
-    
- 
+
+});
+
+    // function showTime(){
+    //     var date = new Date();
+    //     var h = date.getHours(); // 0 - 23
+    //     var m = date.getMinutes(); // 0 - 59
+    //     var s = date.getSeconds(); // 0 - 59
+    //     var session = "AM";
+
+
+    //     h = (h < 10) ? "0" + h : h;
+    //     m = (m < 10) ? "0" + m : m;
+    //     s = (s < 10) ? "0" + s : s;
+
+    //     var time = h + ":" + m + ":" + s + " " + session;
+    //     document.getElementById("MyClockDisplay").innerText = time;
+    //     document.getElementById("MyClockDisplay").textContent = time;
+
+    //     setTimeout(showTime, 1000);
+
+    // }
+
+    // showTime();
+
 //  var trainTimeConverted = moment(trainTime, "HH:mm").subtract(1, "years");
 //  var currentTime = moment();
 //  console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
@@ -96,7 +129,7 @@ $(document).ready(function () {
 //  var minAway = diffTime % frequency;
 //  var trainMinAway = tFrequency - minAway;
 //  var nextTrain = moment().add(trainMinAway, "minutes");
- 
+
 
 
         // //update the page in real-time function
