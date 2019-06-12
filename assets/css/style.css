@@ -65,6 +65,58 @@ table {
   img{
     width:15%;
   }
+  footer{
+    
+    bottom:0;
+    width: 100%;
+    background-color:  #B4BFBC;
+    padding: 10px;
+    text-align: center;
+    margin:10px;
+    color:#035069;
+    font-size: 12px;
+  }
+  @media screen  and (max-width: 980px) {
+    
+    .wrapper {
+        width: 100%;
+        padding: 20px;
+      }
+    
+      .container,
+      .card-title,
+      #train-table,
+      .footer {
+        width: 100%;
+      }
+    }
+  @media screen  and (max-width: 768px) {
+  
+    .wrapper {
+        width: 100%;
+        padding: 20px;
+      }
+    
+      .container,
+      .card-title,
+      #train-table,
+      .footer {
+        width: 100%;
+      }
+    }
+  @media screen  and (max-width: 640px) {
 
+    .wrapper {
+      width: 100%;
+      padding: 20px;
+    }
+  
+    .container,
+    .card-title,
+    #train-table,
+    .footer {
+      width: 100%;
+    }
+}
   /* https://www.uihere.com/free-cliparts/train-drawing-sketch-hand-painted-train-1122920 */
   
