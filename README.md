@@ -8,7 +8,7 @@
 <a name="abstract"></a>
 ## Abstract
 
-Application basically allows user to add a train with a name, destination, frequency and first train's departure time. Once the user submit their input, it is send to Firebase database and uploaded from database to current train schedule table. Application also calculate the next train arrival time and how far the next train is.
+The application allows a user to add a train with a name, destination, frequency, and first train's departure time. Once the user submits their input, it is sent to the Firebase database and uploaded from the database to the current train schedule table. The application also calculates the next train arrival time and how far the next train is.
 
 <a name="overview"></a>
 ## Coding Overview
